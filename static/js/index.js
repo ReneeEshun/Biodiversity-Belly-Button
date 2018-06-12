@@ -1,44 +1,4 @@
-// Plotly.d3.json("/samples/BB_940", function(error, response) {
-//     console.log(response);
-//     console.error(error);
-//     var data=[{
-//         values: response.sample_values.slice(0,10),
-//         labels: response.otu_ids.slice(0,10),
-//         type:"pie" 
-//     }];
-//     var layout={
-//         height:400,
-//         width:500
-//     }
-
-//     Plotly.newPlot("pie",data,layout);
-    
-//     // Create a scatter plot
-// var trace1 = {
-//     x: response.otu_ids,
-//     y: response.sample_values,
-//     mode: "markers",
-//     type: "scatter",
-//     name: "high jump",
-//     marker: {
-//       size:response.sample_values,
-//       color: "#2077b4",
-//       symbol: "circle"
-//     }
-    
-// };
-// Plotly.newPlot("scatter",[trace1],layout)
-  
-  
-// });
-
-// Getting references
-// var selDataset = document.getElementById("selDataset");
-// var PANEL = document.getElementById("sample-metadata");
-// var PIE = document.getElementById("pie");
-// var BUBBLE = document.getElementById("bubble");
-// var Gauge = document.getElementById("gauge");
-
+console.log("hello")
 function updateMetaData(data) {
     // Reference to Panel element for sample metadata
     var PANEL = document.getElementById("sample-metadata");
@@ -54,8 +14,9 @@ function updateMetaData(data) {
     }
 }
 function buildCharts(sampleData, otuData) {
+    
     // Loop through sample data and find the OTU Taxonomic Name
-    var labels = sampleData[0]['otu_ids'].map(function(item) {
+    var labels = sampleData['otu_ids'].map(function(item) {
         return otuData[item]
     });
     // Build Bubble Chart
@@ -65,23 +26,23 @@ function buildCharts(sampleData, otuData) {
         xaxis: { title: 'OTU ID' }
     };
     var bubbleData = [{
-        x: sampleData[0]['otu_ids'],
-        y: sampleData[0]['sample_values'],
+        x: sampleData['otu_ids'],
+        y: sampleData['sample_values'],
         text: labels,
         mode: 'markers',
         marker: {
-            size: sampleData[0]['sample_values'],
-            color: sampleData[0]['otu_ids'],
+            size: sampleData['sample_values'],
+            color: sampleData['otu_ids'],
             colorscale: "Earth",
         }
     }];
     var BUBBLE = document.getElementById('bubble');
     Plotly.plot(BUBBLE, bubbleData, bubbleLayout);
     // Build Pie Chart
-    console.log(sampleData[0]['sample_values'].slice(0, 10))
+    console.log(sampleData['sample_values'].slice(0, 10))
     var pieData = [{
-        values: sampleData[0]['sample_values'].slice(0, 10),
-        labels: sampleData[0]['otu_ids'].slice(0, 10),
+        values: sampleData['sample_values'].slice(0, 10),
+        labels: sampleData['otu_ids'].slice(0, 10),
         hovertext: labels.slice(0, 10),
         hoverinfo: 'hovertext',
         type: 'pie'
@@ -93,8 +54,8 @@ function buildCharts(sampleData, otuData) {
     Plotly.plot(PIE, pieData, pieLayout);
 };
 function updateCharts(sampleData, otuData) {
-    var sampleValues = sampleData[0]['sample_values'];
-    var otuIDs = sampleData[0]['otu_ids'];
+    var sampleValues = sampleData['sample_values'];
+    var otuIDs = sampleData['otu_ids'];
     // Return the OTU Description for each otuID in the dataset
     var labels = otuIDs.map(function(item) {
         return otuData[item]

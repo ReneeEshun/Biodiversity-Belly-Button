@@ -41,7 +41,7 @@ def otulist():
     #Create app for meta data
 
 @app.route('/metadata/<sample>')
-def get_metadata(sammple):
+def get_metadata(sample):
     sample_id=int(sample[3:])
     record=metadata[metadata.SAMPLEID==sample_id].iloc[0]
     return record.to_json()
@@ -63,28 +63,7 @@ def get_samples(sample):
     return jsonify(results)
 
 
-# @app.route("/api/pals")
-# def pals():
-#     results = db.session.query(Pet.type, func.count(Pet.type)).group_by(Pet.type).all()
 
-#     pet_type = [result[0] for result in results]
-#     age = [result[1] for result in results]
-
-#     pet_data = {
-#         "x": pet_type,
-#         "y": age,
-#         "type": "bar"
-#     }
-
-#     return jsonify(pet_data)
-
-
-# @app.route("/api/names")
-# def pets():
-#     results = db.session.query(Pet.name).all()
-#     print(results)
-#     all_pets = list(np.ravel(results))
-#     return jsonify(all_pets)
 
 
 if __name__ == "__main__":
